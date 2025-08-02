@@ -1,13 +1,28 @@
-import { Application } from 'pixi.js';
+import { Application, Container } from 'pixi.js';
+import { addGround } from './addGround.ts';
+import { addMountains } from './addMountains.ts';
+import { addSmokes } from "./addSmokes.ts";
+import { addStars } from "./addStars.ts";
+import { addTrain } from "./addTrain.ts";
+import { addTrees } from "./addTrees.ts";
 
-// Create app
+// Create a PixiJS application.
 const app = new Application();
 
-// Async IIFE
-(async () => {
-  // Init app
-  await app.init({background: '#021f4b', resizeTo: window});
+const trainContainer = new Container();
 
-  // Add canvas to DOM
+// Asynchronous IIFE
+(async () => {
+  // Intialize the application.
+  await app.init({ background: '#021f4b', resizeTo: window });
+
+  // Then adding the application's canvas to the DOM body.
   document.body.appendChild(app.canvas);
+
+  addStars(app);
+  addMountains(app);
+  addTrees(app);
+  addGround(app);
+  addTrain(app, trainContainer);
+  addSmokes(app, trainContainer);
 })();
